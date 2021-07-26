@@ -22,7 +22,9 @@ class Player:
             'buy': 'rpg buy life potion 10',
             'chop': 'rpg axe',
             'fish': 'rpg net',
-            'pickup': 'rpg pickup'
+            'pickup': 'rpg ladder',
+            'farm': 'rpg farm carrot',
+            'upgrade': 'rpg guild upgrade'
         }
 
         # Object user
@@ -30,93 +32,133 @@ class Player:
 
     def progress(self):
         """Auto progress"""
+        i = 0
+        self.user.send_message(self.msg['farm'])
+        sleep(1)
         while True:
             self.user.send_message(self.msg['chop'])
+            if i == 2:
+                sleep(1)
+                self.user.send_message(self.msg['farm'])
+                i = 0
+            i += 1
             sleep(301)
             self.user.send_message(self.msg['fish'])
+            if i == 2:
+                sleep(1)
+                self.user.send_message(self.msg['farm'])
+                i = 0
+            i += 1
             sleep(301)
             self.user.send_message(self.msg['pickup'])
+            if i == 2:
+                sleep(1)
+                self.user.send_message(self.msg['farm'])
+                i = 0
+            i += 1
             sleep(301)
 
     def experience(self):
         """Auto experience"""
         while True:
-            if self.potion == 0:
-                self.user.send_message(self.msg['buy'])
-                self.potion = 10
-                sleep(1)
-            if self.hp > self.adv:
-                self.user.send_message(self.msg['adv'])
-                self.hp -= self.adv
-                sleep(1)
-            else:
-                self.user.send_message(self.msg['heal'])
-                self.hp = self.ihp
-                self.potion -= 1
-                sleep(1)
-                self.user.send_message(self.msg['adv'])
-                self.hp -= self.adv
-                sleep(1)
-            for i in range(60):
+            self.user.send_message(self.msg['upgrade'])
+            for i in range(2):
                 if self.potion == 0:
                     self.user.send_message(self.msg['buy'])
                     self.potion = 10
                     sleep(1)
-                if self.hp > self.hunt:
-                    self.user.send_message(self.msg['hunt'])
-                    self.hp -= self.hunt
-                    sleep(61)
+                if self.hp > self.adv:
+                    self.user.send_message(self.msg['adv'])
+                    self.hp -= self.adv
+                    sleep(1)
                 else:
                     self.user.send_message(self.msg['heal'])
                     self.hp = self.ihp
                     self.potion -= 1
                     sleep(1)
-                    self.user.send_message(self.msg['hunt'])
-                    self.hp -= self.hunt
-                    sleep(61)
+                    self.user.send_message(self.msg['adv'])
+                    self.hp -= self.adv
+                    sleep(1)
+                for j in range(60):
+                    if self.potion == 0:
+                        self.user.send_message(self.msg['buy'])
+                        self.potion = 10
+                        sleep(1)
+                    if self.hp > self.hunt:
+                        self.user.send_message(self.msg['hunt'])
+                        self.hp -= self.hunt
+                        sleep(61)
+                    else:
+                        self.user.send_message(self.msg['heal'])
+                        self.hp = self.ihp
+                        self.potion -= 1
+                        sleep(1)
+                        self.user.send_message(self.msg['hunt'])
+                        self.hp -= self.hunt
+                        sleep(61)
 
     def rpg(self):
         """Auto both progress and experience"""
         while True:
-            if self.potion == 0:
-                self.user.send_message(self.msg['buy'])
-                self.potion = 10
-                sleep(1)
-            if self.hp > self.adv:
-                self.user.send_message(self.msg['adv'])
-                self.hp -= self.adv
-                sleep(1)
-            else:
-                self.user.send_message(self.msg['heal'])
-                self.hp = self.ihp
-                self.potion -= 1
-                sleep(1)
-                self.user.send_message(self.msg['adv'])
-                self.hp -= self.adv
-                sleep(1)
-            for i in range(60):
-                if i % 15 == 0:
-                    self.user.send_message(self.msg['chop'])
-                    sleep(1)
-                elif i % 15 == 5:
-                    self.user.send_message(self.msg['fish'])
-                    sleep(1)
-                elif i % 15 == 10:
-                    self.user.send_message(self.msg['pickup'])
-                    sleep(1)
+            self.user.send_message(self.msg['upgrade'])
+            for i in range(2):
                 if self.potion == 0:
                     self.user.send_message(self.msg['buy'])
                     self.potion = 10
                     sleep(1)
-                if self.hp > self.hunt:
-                    self.user.send_message(self.msg['hunt'])
-                    self.hp -= self.hunt
-                    sleep(61)
+                if self.hp > self.adv:
+                    self.user.send_message(self.msg['adv'])
+                    self.hp -= self.adv
+                    sleep(1)
                 else:
                     self.user.send_message(self.msg['heal'])
                     self.hp = self.ihp
                     self.potion -= 1
                     sleep(1)
-                    self.user.send_message(self.msg['hunt'])
-                    self.hp -= self.hunt
-                    sleep(61)
+                    self.user.send_message(self.msg['adv'])
+                    self.hp -= self.adv
+                    sleep(1)
+                count = 0
+                self.user.send_message(self.msg['farm'])
+                sleep(1)
+                for j in range(60):
+                    if j % 15 == 0:
+                        self.user.send_message(self.msg['chop'])
+                        if count == 2:
+                            sleep(1)
+                            self.user.send_message(self.msg['farm'])
+                            count = 0
+                        count += 1
+                        sleep(1)
+                    elif j % 15 == 5:
+                        self.user.send_message(self.msg['fish'])
+                        if count == 2:
+                            sleep(1)
+                            self.user.send_message(self.msg['farm'])
+                            count = 0
+                        count += 1
+                        sleep(1)
+                    elif j % 15 == 10:
+                        self.user.send_message(self.msg['pickup'])
+                        if count == 2:
+                            sleep(1)
+                            self.user.send_message(self.msg['farm'])
+                            count = 0
+                        count += 1
+                        sleep(1)
+                    if self.potion == 0:
+                        self.user.send_message(self.msg['buy'])
+                        self.potion = 10
+                        sleep(1)
+                    if self.hp > self.hunt:
+                        self.user.send_message(self.msg['hunt'])
+                        self.hp -= self.hunt
+                        sleep(61)
+                    else:
+                        self.user.send_message(self.msg['heal'])
+                        self.hp = self.ihp
+                        self.potion -= 1
+                        sleep(1)
+                        self.user.send_message(self.msg['hunt'])
+                        self.hp -= self.hunt
+                        sleep(61)
