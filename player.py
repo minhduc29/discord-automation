@@ -23,6 +23,7 @@ class Player:
             'chop': 'rpg axe',
             'fish': 'rpg net',
             'pickup': 'rpg ladder',
+            'mine': 'rpg mine',
             'farm': 'rpg farm carrot',
             'upgrade': 'rpg guild upgrade'
         }
@@ -51,6 +52,13 @@ class Player:
             i += 1
             sleep(301)
             self.user.send_message(self.msg['pickup'])
+            if i == 2:
+                sleep(1)
+                self.user.send_message(self.msg['farm'])
+                i = 0
+            i += 1
+            sleep(301)
+            self.user.send_message(self.msg['mine'])
             if i == 2:
                 sleep(1)
                 self.user.send_message(self.msg['farm'])
@@ -122,24 +130,8 @@ class Player:
                 self.user.send_message(self.msg['farm'])
                 sleep(1)
                 for j in range(60):
-                    if j % 15 == 0:
-                        self.user.send_message(self.msg['chop'])
-                        if count == 2:
-                            sleep(1)
-                            self.user.send_message(self.msg['farm'])
-                            count = 0
-                        count += 1
-                        sleep(1)
-                    elif j % 15 == 5:
-                        self.user.send_message(self.msg['fish'])
-                        if count == 2:
-                            sleep(1)
-                            self.user.send_message(self.msg['farm'])
-                            count = 0
-                        count += 1
-                        sleep(1)
-                    elif j % 15 == 10:
-                        self.user.send_message(self.msg['pickup'])
+                    if j % 5 == 0:
+                        self.user.send_message(self.msg['mine'])
                         if count == 2:
                             sleep(1)
                             self.user.send_message(self.msg['farm'])
