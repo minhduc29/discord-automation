@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from datetime import datetime
 
 class User:
     """Your discord account"""
@@ -33,3 +34,9 @@ class User:
         msg_xpath = '//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/main/form/div[1]/div/div/div[1]/div/div[3]/div/div'
         self.driver.find_element_by_xpath(msg_xpath).send_keys(msg)
         self.driver.find_element_by_xpath(msg_xpath).send_keys(Keys.ENTER)
+        self.log(msg)
+
+    def log(self, msg):
+        """Msg log"""
+        t = datetime.now().strftime('%H:%M:%S')
+        print(f'[{t}] MESSAGE: {msg}')
