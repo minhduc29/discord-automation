@@ -28,30 +28,27 @@ class Player:
     def auto_rpg(self):
         """Auto hunt, farm, work"""
         i = 0
-        count = 2
         while True:
             if i % 5 == 0:
                 self.user.send_message(self.msg['work'])
-                if count == 2:
-                    sleep(1.5)
-                    self.user.send_message(self.msg['farm'])
-                    count = 0
-                count += 1
-                sleep(1.5)
+                sleep(1)
+            if i % 10 == 0:
+                self.user.send_message(self.msg['farm'])
+                sleep(1)
             if self.potion == 0:
                 self.user.send_message(self.msg['buy'])
                 self.potion = 10
-                sleep(1.5)
+                sleep(1)
             if self.hp > self.hunt:
                 self.user.send_message(self.msg['hunt'])
                 self.hp -= self.hunt
-                sleep(61.5)
+                sleep(40)
             else:
                 self.user.send_message(self.msg['heal'])
                 self.hp = self.ihp
                 self.potion -= 1
-                sleep(1.5)
+                sleep(1)
                 self.user.send_message(self.msg['hunt'])
                 self.hp -= self.hunt
-                sleep(61.5)
+                sleep(40)
             i += 1
