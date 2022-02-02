@@ -1,4 +1,5 @@
 from time import sleep
+from random import uniform
 
 class Player:
     """Your game character"""
@@ -51,4 +52,5 @@ class Player:
                 self.user.send_message(self.msg['hunt'])
                 self.hp -= self.hunt
                 sleep(40)
+            sleep(uniform(0, 3))
             i += 1
