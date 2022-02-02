@@ -1,9 +1,11 @@
 from time import sleep
 from random import uniform
+from message import send_message
+
 
 class Player:
     """Your game character"""
-    def __init__(self, hp, potion, hunt, user):
+    def __init__(self, hp, potion, hunt):
         # Your health point
         self.ihp = hp
         self.hp = hp
@@ -23,34 +25,31 @@ class Player:
             'work': 'rpg ascended dynamite'
         }
 
-        # Object user
-        self.user = user
-
     def auto_rpg(self):
         """Auto hunt, farm, work"""
         i = 0
         while True:
             if i % 5 == 0:
-                self.user.send_message(self.msg['work'])
+                send_message(self.msg['work'])
                 sleep(1)
             if i % 10 == 0:
-                self.user.send_message(self.msg['farm'])
+                send_message(self.msg['farm'])
                 sleep(1)
             if self.potion == 0:
-                self.user.send_message(self.msg['buy'])
+                send_message(self.msg['buy'])
                 self.potion = 10
                 sleep(1)
             if self.hp > self.hunt:
-                self.user.send_message(self.msg['hunt'])
+                send_message(self.msg['hunt'])
                 self.hp -= self.hunt
                 sleep(40)
             else:
-                self.user.send_message(self.msg['heal'])
+                send_message(self.msg['heal'])
                 self.hp = self.ihp
                 self.potion -= 1
                 sleep(1)
-                self.user.send_message(self.msg['hunt'])
+                send_message(self.msg['hunt'])
                 self.hp -= self.hunt
                 sleep(40)
-            sleep(uniform(0, 3))
+            sleep(uniform(0, 3))  # Make the program less suspicious
             i += 1
